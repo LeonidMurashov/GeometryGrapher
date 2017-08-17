@@ -1,29 +1,34 @@
 package edu.cornsticks.geomgraph;
 
 import android.os.Bundle;
-import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.Toast;
 
 import com.badlogic.gdx.backends.android.AndroidFragmentApplication;
 
-public class AndroidLauncher extends AppCompatActivity implements AndroidFragmentApplication.Callbacks{
+public class AndroidLauncher extends AppCompatActivity implements AndroidFragmentApplication.Callbacks, View.OnClickListener{
+
+    SpaceFragment fragment;
+
 	@Override
 	protected void onCreate (Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.layout_launcher);
 
 
-
-		Log.d("GEGRGRAPH", "onCreate: started!!!");
-
 		setSupportActionBar((Toolbar)findViewById(R.id.toolbar));
 
-		FragmentManager fragmentManager = getSupportFragmentManager();
-		fragmentManager.beginTransaction()
-				.add(R.id.gdxfragment, new SpaceFragment())
+        findViewById(R.id.button_add).setOnClickListener(this);
+        findViewById(R.id.button_reset).setOnClickListener(this);
+
+        fragment = new SpaceFragment();
+
+		getSupportFragmentManager().beginTransaction()
+				.add(R.id.gdxfragment, fragment)
 				.commit();
 	}
 
@@ -34,7 +39,56 @@ public class AndroidLauncher extends AppCompatActivity implements AndroidFragmen
 		return true;
 	}
 
-	@Override
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.action_open:
+                open();
+                break;
+            case R.id.action_save:
+                saveCurrentScene();
+                break;
+            case R.id.action_share:
+                shareCurrentScene();
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+        return true;
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.button_add:
+                addObject();
+                break;
+            case R.id.button_reset:
+                resetScene();
+                break;
+        }
+    }
+
+    public void open(){
+        Toast.makeText(getApplicationContext(), "Opening...", Toast.LENGTH_LONG).show();
+    }
+
+    public void saveCurrentScene(){
+        Toast.makeText(getApplicationContext(), "Saving...", Toast.LENGTH_LONG).show();
+    }
+
+    public void shareCurrentScene(){
+        Toast.makeText(getApplicationContext(), "Coming Soon!!!", Toast.LENGTH_LONG).show();
+    }
+
+    public void addObject(){
+        Toast.makeText(getApplicationContext(), "Adding...", Toast.LENGTH_LONG).show();
+    }
+
+    public void resetScene(){
+        Toast.makeText(getApplicationContext(), "Resetting...", Toast.LENGTH_LONG).show();
+    }
+
+    @Override
 	public void exit() {
 
 	}
