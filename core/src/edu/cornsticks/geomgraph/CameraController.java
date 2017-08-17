@@ -7,20 +7,19 @@ import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 
+public class CameraController implements GestureDetector.GestureListener {
 
-class CameraController implements GestureDetector.GestureListener {
     private PerspectiveCamera cam;
-    private SceneHolder sceneHolder;
-    private Vector3 lookPoint = new Vector3(0,0,0);
-    private float angle = 0;
+    SceneHolder sceneHolder;
+    Vector3 position = new Vector3(150, 150, 150), lookPoint = new Vector3(0,0,0);
+    float angle = 0;
 
 
-    CameraController(SceneHolder sceneHolder) {
+    public CameraController(SceneHolder sceneHolder) {
 
         this.sceneHolder = sceneHolder;
 
         cam = new PerspectiveCamera(67, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        Vector3 position = new Vector3(150, 150, 150);
         cam.position.set(position);
         cam.lookAt(lookPoint);
         //angle = (float)Math.acos((Vector3.Z.z*lookPoint.z)/(Vector3.Z.cpy().len()*lookPoint.cpy().len()));
@@ -29,7 +28,7 @@ class CameraController implements GestureDetector.GestureListener {
         cam.update();
     }
 
-    Camera getCamera() {
+    public Camera getCamera() {
         return cam;
     }
 
@@ -40,7 +39,7 @@ class CameraController implements GestureDetector.GestureListener {
 
     @Override
     public boolean tap(float x, float y, int count, int button) {
-        // Gdx.app.log(Float.toString(x), Float.toString(y));
+       // Gdx.app.log(Float.toString(x), Float.toString(y));
         //Gdx.app.log("CAN SEE IT", "!!!!!!!!!!!!!!!");
         if(count == 2) {
             lookPoint.set(0,0,0);
@@ -50,7 +49,7 @@ class CameraController implements GestureDetector.GestureListener {
             angle = 0;
         }
 
-        sceneHolder.changePlane();
+        sceneHolder.ReDraw();
         return false;
     }
 
@@ -68,18 +67,18 @@ class CameraController implements GestureDetector.GestureListener {
     @Override
     public boolean pan(float x, float y, float deltaX, float deltaY) {
 
-        // float len = position.len(),
-        //         theta = (float)Math.acos(position.z/len),
-        //         phi = (float)Math.atan(position.y/ position.x);
+       // float len = position.len(),
+       //         theta = (float)Math.acos(position.z/len),
+       //         phi = (float)Math.atan(position.y/ position.x);
 
-        // theta -= deltaX*0.005f;
-        // if(phi + deltaY*0.005f > -3.1415f/2.f && phi + deltaY*0.005f < 3.1415f/2.f)
-        //     phi += deltaY*0.005f;
-        // position.set((float)(len*Math.sin(theta)*Math.cos(phi)), (float)(len*Math.sin(theta)*Math.sin(phi)), (float)(len*Math.cos(theta)));
-        // cam.position.set(position);
+       // theta -= deltaX*0.005f;
+       // if(phi + deltaY*0.005f > -3.1415f/2.f && phi + deltaY*0.005f < 3.1415f/2.f)
+       //     phi += deltaY*0.005f;
+       // position.set((float)(len*Math.sin(theta)*Math.cos(phi)), (float)(len*Math.sin(theta)*Math.sin(phi)), (float)(len*Math.cos(theta)));
+       // cam.position.set(position);
         //Gdx.app.log("CAM ANG!!!!!", Float.toString(theta)+ " " +Float.toString(phi) + " " + Float.toString(len));
-        // len = cam.position.len();
-        // Gdx.app.log("CAM ANG!!!!!", Float.toString(cam.position.x)+ " " +Float.toString(cam.position.y) + " " + Float.toString(cam.position.z));
+       // len = cam.position.len();
+       // Gdx.app.log("CAM ANG!!!!!", Float.toString(cam.position.x)+ " " +Float.toString(cam.position.y) + " " + Float.toString(cam.position.z));
         cam.rotateAround(lookPoint, Vector3.Y.cpy(), -deltaX*0.1f);
         if(angle - deltaY*0.1f > -89 && angle - deltaY*0.1f < 89) {
             cam.rotateAround(lookPoint, Vector3.Y.cpy().crs(cam.position), -deltaY * 0.1f);
@@ -114,6 +113,7 @@ class CameraController implements GestureDetector.GestureListener {
         lookPoint.add(add);
         cam.position.add(add);
         pan(-1,-1,0,0);
+
         cam.up.set(Vector3.Y);*/
         return false;
     }

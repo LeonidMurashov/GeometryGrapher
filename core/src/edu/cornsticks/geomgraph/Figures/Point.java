@@ -10,13 +10,23 @@ import com.badlogic.gdx.graphics.g3d.attributes.ColorAttribute;
 import com.badlogic.gdx.graphics.g3d.utils.ModelBuilder;
 import com.badlogic.gdx.math.Vector3;
 
-/**
- * Created by Peter on 16.08.2017. KEK!
- */
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Random;
+
+import edu.cornsticks.geomgraph.Gauss.EquationSolver;
 
 public class Point extends Figure {
-    public Point(Vector3 pos)
+    private Vector3 pos;
+    public Point()
     {
+    }
+
+    @Override
+    protected void InitDrawable() {
+
         this.center = pos;
         ModelBuilder modelBuilder = new ModelBuilder();
 
@@ -46,5 +56,39 @@ public class Point extends Figure {
     public void dispose() {
         model.dispose();
         center.set(0,0,0);
+    }
+
+    @Override
+    public ArrayList<Float> getParams() throws IOException {
+        if (!initialized)
+            throw new IOException("Not initialized");
+        return new ArrayList<Float>(Arrays.asList(new Float[]{ center.x, center.y, center.z }));
+    }
+
+    @Override
+    public void SolveSystem() {
+        int coefs_num = 3+1;//equations.get(0).size();
+        Random r = new Random();
+
+        if (equations.size() < coefs_num-1)
+        {
+            while(equations.size() != coefs_num-1){
+                ArrayList<Float> eq = new ArrayList<Float>();
+                for (int i = 0; i < coefs_num; i++)
+                    eq.add(r.nextFloat()*2 - 1.f);
+                equations.add(eq);
+            }
+        }
+        else if (equations.size() > coefs_num-1)
+        {
+            while(equations.size() != coefs_num-1)
+                equations.remove(equations.size()-1);
+        }
+
+        List<Float> vec = EquationSolver.solveSystem(equations);
+        pos = new Vector3(vec.get(0), vec.get(1), vec.get(2));
+
+        initialized = true;
+        InitDrawable();
     }
 }

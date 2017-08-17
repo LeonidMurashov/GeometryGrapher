@@ -1,7 +1,8 @@
 package edu.cornsticks.geomgraph;
 
-import com.badlogic.gdx.ApplicationAdapter;
+import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -13,7 +14,9 @@ import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 
-public class BaseSpaceClass extends ApplicationAdapter {
+import java.io.IOException;
+
+public class BaseSpaceClass extends InputAdapter implements ApplicationListener {
 	private ModelBatch modelBatch;
 	private Environment environment;
 
@@ -77,5 +80,9 @@ public class BaseSpaceClass extends ApplicationAdapter {
 
 	@Override
 	public void dispose () {
+	}
+
+	void parseAndAdd(String newObject) throws IOException {
+		sceneHolder.DrawThis(newObject);
 	}
 }

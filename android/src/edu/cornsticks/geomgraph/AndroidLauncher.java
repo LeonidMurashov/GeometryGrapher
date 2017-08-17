@@ -1,14 +1,19 @@
 package edu.cornsticks.geomgraph;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.badlogic.gdx.backends.android.AndroidFragmentApplication;
+
+import java.io.IOException;
 
 public class AndroidLauncher extends AppCompatActivity implements AndroidFragmentApplication.Callbacks, View.OnClickListener{
 
@@ -81,11 +86,42 @@ public class AndroidLauncher extends AppCompatActivity implements AndroidFragmen
     }
 
     public void addObject(){
-        Toast.makeText(getApplicationContext(), "Adding...", Toast.LENGTH_LONG).show();
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        final EditText text = new EditText(this);
+        text.setHint("Enter a command to add an object");
+        builder.setView(text);
+//        View view = getLayoutInflater().inflate(R.layout.layout_add_object, null);
+//        builder.setView(view);
+////       final EditText EcA = view.findViewById(R.id.coordA);
+//        final EditText EcB = view.findViewById(R.id.coordB);
+//        final EditText EcC = view.findViewById(R.id.coordC);
+//        final EditText EcD = view.findViewById(R.id.coordD);
+
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+                try {
+                    fragment.parseAndAddObject(text.getText().toString());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+//                fragment.addPlane(Float.parseFloat(EcA.getText().toString()),
+//                        Float.parseFloat(EcB.getText().toString()),
+//                        Float.parseFloat(EcC.getText().toString()),
+//                        Float.parseFloat(EcD.getText().toString()));
+
+            }
+        }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+            }
+        }).setTitle("Add Object").show();
     }
 
     public void resetScene(){
-        Toast.makeText(getApplicationContext(), "Resetting...", Toast.LENGTH_LONG).show();
+        fragment.resetScene();
     }
 
     @Override
