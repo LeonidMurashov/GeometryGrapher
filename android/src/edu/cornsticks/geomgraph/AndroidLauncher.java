@@ -100,17 +100,7 @@ public class AndroidLauncher extends AppCompatActivity implements AndroidFragmen
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-
-                try {
-                    fragment.parseAndAddObject(text.getText().toString());
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-//                fragment.addPlane(Float.parseFloat(EcA.getText().toString()),
-//                        Float.parseFloat(EcB.getText().toString()),
-//                        Float.parseFloat(EcC.getText().toString()),
-//                        Float.parseFloat(EcD.getText().toString()));
-
+				fragment.parseAndAddObject(text.getText().toString());
             }
         }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             @Override

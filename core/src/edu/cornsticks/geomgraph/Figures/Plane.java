@@ -23,7 +23,7 @@ import edu.cornsticks.geomgraph.Gauss.EquationSolver;
 public class Plane extends Figure{
 
     private com.badlogic.gdx.math.Plane plane;
-    private float A, B, C, D, width;
+    public float A, B, C, D, width;
     private Color color;
 
     public Plane(Color color)
@@ -45,11 +45,6 @@ public class Plane extends Figure{
         //instance.transform.setToRotationRad();
         Vector3 normal = plane.getNormal();
         instance.transform.rotate(Vector3.Z, normal);
-        this.A = normal.x;
-        this.B = normal.y;
-        this.C = normal.z;
-        this.D = -1 * (A*center.x + B*center.y + C*center.z);
-
         // instance.transform.setToRotation(plane.getNormal(), )
 
         instance.transform.setTranslation(center);
@@ -79,15 +74,10 @@ public class Plane extends Figure{
     public ArrayList<Float> getParams() throws IOException {
         if (!initialized)
             throw new IOException("Not initialized");
-        Vector3 normal = plane.getNormal();
-        this.A = normal.x;
-        this.B = normal.y;
-        this.C = normal.z;
-        D = -1 * (A*center.x + B*center.y + C*center.z);
         return new ArrayList<Float>(Arrays.asList(new Float[]{A, B, C, D}));
     }
 
-    public void angleTo(Figure fig, float angle) throws IOException {
+    private void angleTo(Figure fig, float angle) throws IOException {
         Random r = new Random();
         if (fig instanceof Line){
             ArrayList<Float> lParams = fig.getParams();
@@ -99,7 +89,7 @@ public class Plane extends Figure{
         else if (fig instanceof Plane){
             ArrayList<Float> pParams = fig.getParams();
             ArrayList<Float> equation = new ArrayList<Float>(Arrays.asList(new Float[]{
-                    pParams.get(0), pParams.get(1), pParams.get(2), 0.f, (float)Math.cos(angle)
+                    pParams.get(0), pParams.get(1), pParams.get(2), 0.f, 1.f//(float)Math.cos(angle)
             }));
             equations.add(equation);
         }
@@ -108,36 +98,57 @@ public class Plane extends Figure{
     }
 
     @Override
-    public void SolveSystem() {
-        int coefs_num = 4+1;//equations.get(0).size();
+    public void Solve() {
+
+        for (Action act : actions){
+            try {
+                if (act.action.equals("parallel"))
+                    angleTo(act.figure, 0.f);
+                else if (act.action.equals("ortho"))
+                    angleTo(act.figure, (float) (Math.PI / 2.f));
+                else if (act.action.equals("angle"))
+                    angleTo(act.figure, Float.parseFloat(act.param)/180.f*((float)Math.PI));
+                else
+                    throw new IOException("No such operation: " + act.action);
+            }
+            catch (IOException ignored){}
+        }
+
+        int var_num = 4;
         Random r = new Random();
 
-        if (equations.size() < coefs_num-1)
-        {
-            while(equations.size() != coefs_num-1){
+        if (equations.size() < var_num)
+            while(equations.size() != var_num){
                 ArrayList<Float> eq = new ArrayList<Float>();
-                for (int i = 0; i < coefs_num; i++)
-                    eq.add(r.nextFloat()*2 - 1.f);
+                eq.add(r.nextFloat()*20 - 10.f);
+                eq.add(r.nextFloat()*20 - 10.f);
+                eq.add(r.nextFloat()*20 - 10.f);
+                eq.add(r.nextFloat()*2 - 1.f);
+                eq.add(r.nextFloat()*20 - 10.f);
                 equations.add(eq);
             }
-        }
-        else if (equations.size() > coefs_num-1)
-        {
-            while(equations.size() != coefs_num-1)
-                equations.remove(equations.size()-1);
-        }
+        else if (equations.size() > var_num)
+            while(equations.size() != var_num)
+                equations.remove(equations.size());
 
-        List<Float> vec = EquationSolver.solveSystem(equations);
-        A = vec.get(0);
-        B = vec.get(1);
-        C = vec.get(2);
-        D = vec.get(3);
+
+        if (! name.equals("test")) {
+
+            List<Float> vec = EquationSolver.solveSystem(equations);
+            A = vec.get(0);
+            B = vec.get(1);
+            C = vec.get(2);
+            D = vec.get(3);
+        }
+        if (C == 0.f)
+            C = 0.001f;
         width = 100;
-        center = new Vector3(0,0,0);
+        float x = r.nextFloat()*40-20,
+              y = r.nextFloat()*40-20;
+
+        center = new Vector3(x, y, -(A*x+B*y+D)/C);
 
         initialized = true;
-        InitDrawable(); // TODO!!!
-        //float A, float B, float C, float D, float width, Vector3 center,
+        InitDrawable();
     }
-
 }

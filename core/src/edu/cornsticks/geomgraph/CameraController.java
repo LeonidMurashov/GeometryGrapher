@@ -25,6 +25,7 @@ public class CameraController implements GestureDetector.GestureListener {
         //angle = (float)Math.acos((Vector3.Z.z*lookPoint.z)/(Vector3.Z.cpy().len()*lookPoint.cpy().len()));
         cam.near = 1;
         cam.far = 3000;
+        cam.up.set(Vector3.Z);
         cam.update();
     }
 
@@ -44,7 +45,7 @@ public class CameraController implements GestureDetector.GestureListener {
         if(count == 2) {
             lookPoint.set(0,0,0);
             cam.position.set(100,0,0);
-            cam.up.set(Vector3.Y);
+            cam.up.set(Vector3.Z);
             pan(-1, -1, 0, 0);
             angle = 0;
         }
@@ -79,9 +80,9 @@ public class CameraController implements GestureDetector.GestureListener {
         //Gdx.app.log("CAM ANG!!!!!", Float.toString(theta)+ " " +Float.toString(phi) + " " + Float.toString(len));
        // len = cam.position.len();
        // Gdx.app.log("CAM ANG!!!!!", Float.toString(cam.position.x)+ " " +Float.toString(cam.position.y) + " " + Float.toString(cam.position.z));
-        cam.rotateAround(lookPoint, Vector3.Y.cpy(), -deltaX*0.1f);
-        if(angle - deltaY*0.1f > -89 && angle - deltaY*0.1f < 89) {
-            cam.rotateAround(lookPoint, Vector3.Y.cpy().crs(cam.position), -deltaY * 0.1f);
+        cam.rotateAround(lookPoint, Vector3.Z.cpy(), -deltaX*0.1f);
+        if(angle - deltaY*0.1f > -87 && angle - deltaY*0.1f < 87) {
+            cam.rotateAround(lookPoint, Vector3.Z.cpy().crs(cam.position), -deltaY * 0.1f);
             angle -= deltaY*0.1f;
         }
         //cam.position.scl(len/cam.position.len());

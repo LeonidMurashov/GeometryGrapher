@@ -66,7 +66,7 @@ public class Point extends Figure {
     }
 
     @Override
-    public void SolveSystem() {
+    public void Solve() {
         int coefs_num = 3+1;//equations.get(0).size();
         Random r = new Random();
 

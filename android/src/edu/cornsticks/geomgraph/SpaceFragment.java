@@ -5,24 +5,28 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.badlogic.gdx.backends.android.AndroidFragmentApplication;
 
 import java.io.IOException;
 
-public class SpaceFragment extends AndroidFragmentApplication {
+public class SpaceFragment extends AndroidFragmentApplication implements AndroidDealer {
 
     private BaseSpaceClass space;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        space = new BaseSpaceClass();
-        return initializeForView(space);
 
+        Toast toast = new Toast(this.getContext());
+
+        space = new BaseSpaceClass(this);
+
+        return initializeForView(space);
     }
 
-    void parseAndAddObject(String newObject) throws IOException {
+    void parseAndAddObject(String newObject) {
         space.parseAndAdd(newObject);
     }
 
@@ -35,4 +39,16 @@ public class SpaceFragment extends AndroidFragmentApplication {
     //    space.resetScene();
     }
 
+    @Override
+    public void MakeToast(final String str) {
+        runOnUiThread(
+                new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(getContext(), str,
+                                Toast.LENGTH_LONG).show();
+                    }
+                }
+        );
+    }
 }

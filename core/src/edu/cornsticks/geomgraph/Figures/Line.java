@@ -111,22 +111,22 @@ public class Line extends Figure {
     }
 
     @Override
-    public void SolveSystem() {
-        int coefs_num = 6+1;//equations.get(0).size();
+    public void Solve() {
+        int coefs_num = 6;//equations.get(0).size();
         Random r = new Random();
 
-        if (equations.size() < coefs_num-1)
+        if (equations.size() < coefs_num)
         {
-            while(equations.size() != coefs_num-1){
+            while(equations.size() != coefs_num){
                 ArrayList<Float> eq = new ArrayList<Float>();
-                for (int i = 0; i < coefs_num; i++)
+                for (int i = 0; i < coefs_num+1; i++)
                     eq.add(r.nextFloat()*2 - 1.f);
                 equations.add(eq);
             }
         }
-        else if (equations.size() > coefs_num-1)
+        else if (equations.size() > coefs_num)
         {
-            while(equations.size() != coefs_num-1)
+            while(equations.size() != coefs_num)
                 equations.remove(equations.size()-1);
         }
 
