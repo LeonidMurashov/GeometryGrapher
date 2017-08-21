@@ -98,7 +98,7 @@ public class Line extends Figure {
             equations.add(equation);
         }
         else
-            throw new IOException("is not plane or line");
+            throw new IOException(fig.GetName() + "is not plane or line");
     }
 
     public void intersect(Figure fig){
@@ -106,7 +106,7 @@ public class Line extends Figure {
 
     public void have(Figure fig) throws IOException {
         if (!(fig instanceof Point))
-            throw new IOException("is not a point");
+            throw new IOException(fig.GetName() + "is not a point");
 
     }
 

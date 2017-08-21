@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.g3d.attributes.ColorAttribute;
 import com.badlogic.gdx.graphics.g3d.utils.ModelBuilder;
 import com.badlogic.gdx.math.Quaternion;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.utils.Array;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -89,12 +90,12 @@ public class Plane extends Figure{
         else if (fig instanceof Plane){
             ArrayList<Float> pParams = fig.getParams();
             ArrayList<Float> equation = new ArrayList<Float>(Arrays.asList(new Float[]{
-                    pParams.get(0), pParams.get(1), pParams.get(2), 0.f, 1.f//(float)Math.cos(angle)
+                    pParams.get(0), pParams.get(1), pParams.get(2), 0.f, (float)Math.cos(angle)
             }));
             equations.add(equation);
         }
         else
-            throw new IOException("is not plane or line");
+            throw new IOException(fig.GetName() + "is not plane or line!");
     }
 
     @Override
@@ -114,27 +115,34 @@ public class Plane extends Figure{
             catch (IOException ignored){}
         }
 
+        int a = 0;
         int var_num = 4;
         Random r = new Random();
 
         if (equations.size() < var_num)
             while(equations.size() != var_num){
                 ArrayList<Float> eq = new ArrayList<Float>();
-                eq.add(r.nextFloat()*20 - 10.f);
-                eq.add(r.nextFloat()*20 - 10.f);
-                eq.add(r.nextFloat()*20 - 10.f);
-                eq.add(r.nextFloat()*2 - 1.f);
-                eq.add(r.nextFloat()*20 - 10.f);
+                eq.add(r.nextFloat());//*20.f - 10.f);//
+                eq.add(r.nextFloat());//*20.f - 10.f);
+                eq.add(r.nextFloat());//*20.f - 10.f);
+                eq.add(r.nextFloat());//*2.f - 1.f);
+                eq.add(r.nextFloat());//*20.f - 10.f);
                 equations.add(eq);
+                a++;
             }
         else if (equations.size() > var_num)
             while(equations.size() != var_num)
                 equations.remove(equations.size());
-
-
+        /*ArrayList<Float> eq = new ArrayList<Float>();
+        eq.add(r.nextFloat());//*20.f - 10.f);//
+        eq.add(r.nextFloat());//*20.f - 10.f);
+        eq.add(r.nextFloat());//*20.f - 10.f);
+        eq.add(r.nextFloat());//*2.f - 1.f);
+        eq.add(r.nextFloat());//*20.f - 10.f);
+        equations.add(eq);*/
+        a++;
+        List<Float> vec = EquationSolver.solveSystem(equations);
         if (! name.equals("test")) {
-
-            List<Float> vec = EquationSolver.solveSystem(equations);
             A = vec.get(0);
             B = vec.get(1);
             C = vec.get(2);
@@ -143,12 +151,16 @@ public class Plane extends Figure{
         if (C == 0.f)
             C = 0.001f;
         width = 100;
-        float x = r.nextFloat()*40-20,
-              y = r.nextFloat()*40-20;
 
-        center = new Vector3(x, y, -(A*x+B*y+D)/C);
+        do {
+            float x = r.nextFloat() * 40 - 20,
+                    y = r.nextFloat() * 40 - 20;
+            center = new Vector3(x, y, -(A * x + B * y + D) / C);
+        }
+        while (Math.abs(center.z) > 200);
 
         initialized = true;
         InitDrawable();
+        a  =5;
     }
 }

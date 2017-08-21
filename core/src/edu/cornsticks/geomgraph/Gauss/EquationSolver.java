@@ -25,7 +25,7 @@ public class EquationSolver {
 			for(j = list.size() - 1; j > i; j--) {
 				sum += list.itemAt(i, j) * x[j];
 			}
-			x[i] = (list.itemAt(i, list.size()) - sum) / list.itemAt(i, j);
+			x[i] = (list.itemAt(i, list.size()) - sum) / (list.itemAt(i, j) != 0 ? list.itemAt(i, j) : 0.0001f);
 		}
 		return new ArrayList<Float>(Arrays.asList(x));
 	}

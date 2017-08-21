@@ -42,7 +42,7 @@ class SceneHolder {
         instance = new ModelInstance(model);
 
         try {
-            DrawThis("plane alfa\nplane beta\nbeta ortho alfa");
+            DrawThis("plane a\nplane b\na ortho b");
         } catch (IOException e) {
             e.printStackTrace();
 			dealer.MakeToast(e.getMessage());
@@ -124,7 +124,7 @@ class SceneHolder {
 		test.name = "test";
 		test.A = 0;
 		test.B = 0;
-		test.C = 0;
+		test.C = 1;
 		test.D = 0;
 		test.Solve();
 		scene.add(test);
