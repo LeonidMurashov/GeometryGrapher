@@ -10,7 +10,6 @@ import com.badlogic.gdx.graphics.g3d.ModelInstance;
 import com.badlogic.gdx.graphics.g3d.attributes.ColorAttribute;
 import com.badlogic.gdx.graphics.g3d.utils.ModelBuilder;
 import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.utils.Array;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -30,9 +29,9 @@ class SceneHolder {
     private String inputLines;
     private Random r = new Random();
     private boolean rendering = true;
-	private AndroidDealer dealer;
+	private Messenger dealer;
 
-    SceneHolder(AndroidDealer dealer) {
+    SceneHolder(Messenger dealer) {
 
 		this.dealer = dealer;
 
@@ -45,7 +44,7 @@ class SceneHolder {
             DrawThis("plane a\nplane b\na ortho b");
         } catch (IOException e) {
             e.printStackTrace();
-			dealer.MakeToast(e.getMessage());
+			dealer.sendMessage(e.getMessage());
         }
     }
 
@@ -58,7 +57,7 @@ class SceneHolder {
         //instance.transform.set(sceneCenter, new Quaternion());
 
         for(Figure f : scene)
-            f.Draw(modelBatch,environment);
+            f.draw(modelBatch,environment);
         modelBatch.render(instance, environment);
     }
 
@@ -71,7 +70,7 @@ class SceneHolder {
             DrawThis(inputLines);
         } catch (IOException e) {
             e.printStackTrace();
-			dealer.MakeToast(e.getMessage());
+			dealer.sendMessage(e.getMessage());
         }
     }
 

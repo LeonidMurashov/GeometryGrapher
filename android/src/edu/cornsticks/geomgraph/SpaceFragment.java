@@ -9,17 +9,13 @@ import android.widget.Toast;
 
 import com.badlogic.gdx.backends.android.AndroidFragmentApplication;
 
-import java.io.IOException;
-
-public class SpaceFragment extends AndroidFragmentApplication implements AndroidDealer {
+public class SpaceFragment extends AndroidFragmentApplication implements Messenger {
 
     private BaseSpaceClass space;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
-        Toast toast = new Toast(this.getContext());
 
         space = new BaseSpaceClass(this);
 
@@ -40,15 +36,13 @@ public class SpaceFragment extends AndroidFragmentApplication implements Android
     }
 
     @Override
-    public void MakeToast(final String str) {
-        runOnUiThread(
-                new Runnable() {
-                    @Override
-                    public void run() {
-                        Toast.makeText(getContext(), str,
-                                Toast.LENGTH_LONG).show();
-                    }
-                }
-        );
+    public void sendMessage(final String msg) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(getContext().getApplicationContext(), msg, Toast.LENGTH_LONG).show();
+            }
+        });
+
     }
 }

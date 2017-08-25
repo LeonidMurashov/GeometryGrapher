@@ -2,72 +2,51 @@ package edu.cornsticks.geomgraph.Figures;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.VertexAttributes;
-import com.badlogic.gdx.graphics.g3d.Environment;
 import com.badlogic.gdx.graphics.g3d.Material;
-import com.badlogic.gdx.graphics.g3d.ModelBatch;
 import com.badlogic.gdx.graphics.g3d.ModelInstance;
 import com.badlogic.gdx.graphics.g3d.attributes.ColorAttribute;
 import com.badlogic.gdx.graphics.g3d.utils.ModelBuilder;
 import com.badlogic.gdx.math.Vector3;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
-
-import edu.cornsticks.geomgraph.Gauss.EquationSolver;
-
 public class Point extends Figure {
+
     private Vector3 pos;
-    public Point()
-    {
-    }
 
-    @Override
-    protected void InitDrawable() {
+    public Point(float x, float y, float z){
 
-        this.center = pos;
+        pos = new Vector3(x,y,z);
+
         ModelBuilder modelBuilder = new ModelBuilder();
 
-        Color color = Color.BLACK;
-        if(pos.len() == 0)//(new Vector3(0,0,0)))
-            color = Color.RED;
+        Color color = (pos.isZero()) ? Color.RED : Color.BLACK;
 
         model = modelBuilder.createSphere(3,3,3,16,16, new Material(ColorAttribute.createDiffuse(color)),
                 VertexAttributes.Usage.Position | VertexAttributes.Usage.Normal);
+
         instance = new ModelInstance(model);
         instance.transform.setTranslation(pos);
     }
 
-    @Override
-    public void Draw(ModelBatch modelBatch, Environment environment) {
-
-        modelBatch.render(instance, environment);
-    }
-
-    @Override
-    public void TranslateCenter(Vector3 translation) {
-        instance.transform.translate(translation);
-        this.center.add(translation);
+    public Point(Vector3 position){
+        this(position.x, position.y, position.z);
     }
 
     @Override
     public void dispose() {
         model.dispose();
-        center.set(0,0,0);
+        pos.set(0.0f, 0.0f, 0.0f);
     }
 
-    @Override
+/*    @Override
     public ArrayList<Float> getParams() throws IOException {
         if (!initialized)
             throw new IOException("Not initialized");
         return new ArrayList<Float>(Arrays.asList(new Float[]{ center.x, center.y, center.z }));
-    }
+    }*/
 
-    @Override
+/*    @Override
     public void Solve() {
-        int coefs_num = 3+1;//equations.get(0).size();
+        int coefs_num = 4;//equations.get(0).size();
         Random r = new Random();
 
         if (equations.size() < coefs_num-1)
@@ -90,5 +69,5 @@ public class Point extends Figure {
 
         initialized = true;
         InitDrawable();
-    }
+    }*/
 }

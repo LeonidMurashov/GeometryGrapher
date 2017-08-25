@@ -24,16 +24,16 @@ public class BaseSpaceClass extends InputAdapter implements ApplicationListener 
 	private Stage stage;
 	private SceneHolder sceneHolder;
 	private CameraController cameraController;
-	private AndroidDealer dealer;
+	private Messenger messenger;
 
-	public BaseSpaceClass(AndroidDealer dealer) {
-		this.dealer = dealer;
+	public BaseSpaceClass(Messenger messenger) {
+		this.messenger = messenger;
 	}
 
 	@Override
 	public void create () {
 
-		sceneHolder = new SceneHolder(dealer);
+		sceneHolder = new SceneHolder(messenger);
 		cameraController = new CameraController(sceneHolder);
 		Gdx.input.setInputProcessor(new GestureDetector(cameraController));
 
@@ -92,7 +92,7 @@ public class BaseSpaceClass extends InputAdapter implements ApplicationListener 
 			sceneHolder.DrawThis(newObject);
 		} catch (IOException e) {
 			e.printStackTrace();
-			dealer.MakeToast(e.getMessage());
+			messenger.sendMessage(e.getMessage());
 		}
 	}
 }

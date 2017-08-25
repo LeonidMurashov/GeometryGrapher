@@ -1,32 +1,17 @@
 package edu.cornsticks.geomgraph.Figures;
 
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.VertexAttributes;
-import com.badlogic.gdx.graphics.g3d.Environment;
-import com.badlogic.gdx.graphics.g3d.Material;
-import com.badlogic.gdx.graphics.g3d.ModelBatch;
-import com.badlogic.gdx.graphics.g3d.ModelInstance;
-import com.badlogic.gdx.graphics.g3d.attributes.ColorAttribute;
-import com.badlogic.gdx.graphics.g3d.utils.ModelBuilder;
 import com.badlogic.gdx.math.Vector3;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
-
-import edu.cornsticks.geomgraph.Gauss.EquationSolver;
-
 public class Line extends Figure {
-    private Vector3 direction;
-    private Vector3 point;
+
+    private Vector3 directive;
+    private Point point;
 
     public Line() {
+
     }
 
-    @Override
+/*    @Override
     protected void InitDrawable() {
         Vector3 vec1 = point;
         Vector3 vec2 = point.cpy().add(vec1).scl(1);
@@ -41,11 +26,6 @@ public class Line extends Figure {
         instance = new ModelInstance(model);
     }
 
-    @Override
-    public void Draw(ModelBatch modelBatch, Environment environment) {
-
-        modelBatch.render(instance, environment);
-    }
 
     @Override
     public void TranslateCenter(Vector3 translation) {
@@ -136,5 +116,5 @@ public class Line extends Figure {
 
         initialized = true;
         InitDrawable();
-    }
+    }*/
 }

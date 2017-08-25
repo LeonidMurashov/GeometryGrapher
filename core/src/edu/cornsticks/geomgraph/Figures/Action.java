@@ -5,6 +5,7 @@ package edu.cornsticks.geomgraph.Figures;
  */
 
 class Action {
+
 	Figure figure;
 	String action;
 	String param;

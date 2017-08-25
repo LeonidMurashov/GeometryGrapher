@@ -1,29 +1,8 @@
 package edu.cornsticks.geomgraph.Figures;
 
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.VertexAttributes;
-import com.badlogic.gdx.graphics.g3d.Environment;
-import com.badlogic.gdx.graphics.g3d.Material;
-import com.badlogic.gdx.graphics.g3d.ModelBatch;
-import com.badlogic.gdx.graphics.g3d.ModelInstance;
-import com.badlogic.gdx.graphics.g3d.attributes.ColorAttribute;
-import com.badlogic.gdx.graphics.g3d.utils.ModelBuilder;
-import com.badlogic.gdx.math.Quaternion;
-import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.utils.Array;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
-
-import edu.cornsticks.geomgraph.Gauss.EquationSolver;
-
 public class Plane extends Figure{
 
-    private com.badlogic.gdx.math.Plane plane;
+    /*private com.badlogic.gdx.math.Plane plane;
     public float A, B, C, D, width;
     private Color color;
 
@@ -49,12 +28,6 @@ public class Plane extends Figure{
         // instance.transform.setToRotation(plane.getNormal(), )
 
         instance.transform.setTranslation(center);
-    }
-
-    @Override
-    public void Draw(ModelBatch modelBatch, Environment environment) {
-
-        modelBatch.render(instance, environment);
     }
 
     @Override
@@ -95,7 +68,7 @@ public class Plane extends Figure{
             equations.add(equation);
         }
         else
-            throw new IOException(fig.GetName() + "is not plane or line!");
+            throw new IOException(fig.getName() + "is not plane or line!");
     }
 
     @Override
@@ -117,29 +90,29 @@ public class Plane extends Figure{
 
         int a = 0;
         int var_num = 4;
-        Random r = new Random();
+        Random r = new Random(System.currentTimeMillis());
 
         if (equations.size() < var_num)
             while(equations.size() != var_num){
                 ArrayList<Float> eq = new ArrayList<Float>();
-                eq.add(r.nextFloat());//*20.f - 10.f);//
-                eq.add(r.nextFloat());//*20.f - 10.f);
-                eq.add(r.nextFloat());//*20.f - 10.f);
-                eq.add(r.nextFloat());//*2.f - 1.f);
-                eq.add(r.nextFloat());//*20.f - 10.f);
+                eq.add(r.nextFloat());/*//*20.f - 10.f);//
+                eq.add(r.nextFloat());/*//*20.f - 10.f);
+                eq.add(r.nextFloat());/*//*20.f - 10.f);
+                eq.add(r.nextFloat());/*//*2.f - 1.f);
+                eq.add(r.nextFloat());/*//*20.f - 10.f);
                 equations.add(eq);
                 a++;
             }
         else if (equations.size() > var_num)
             while(equations.size() != var_num)
-                equations.remove(equations.size());
-        /*ArrayList<Float> eq = new ArrayList<Float>();
-        eq.add(r.nextFloat());//*20.f - 10.f);//
-        eq.add(r.nextFloat());//*20.f - 10.f);
-        eq.add(r.nextFloat());//*20.f - 10.f);
-        eq.add(r.nextFloat());//*2.f - 1.f);
-        eq.add(r.nextFloat());//*20.f - 10.f);
-        equations.add(eq);*/
+                equations.remove(equations.size()-1);
+        *//*ArrayList<Float> eq = new ArrayList<Float>();
+        eq.add(r.nextFloat());/*//*20.f - 10.f);//
+        eq.add(r.nextFloat());/*//*20.f - 10.f);
+        eq.add(r.nextFloat());/*//*20.f - 10.f);
+        eq.add(r.nextFloat());/*//*2.f - 1.f);
+        eq.add(r.nextFloat());/*//*20.f - 10.f);
+        equations.add(eq);*//*
         a++;
         List<Float> vec = EquationSolver.solveSystem(equations);
         if (! name.equals("test")) {
@@ -161,6 +134,6 @@ public class Plane extends Figure{
 
         initialized = true;
         InitDrawable();
-        a  =5;
-    }
+        a  = 5;
+    }*/
 }

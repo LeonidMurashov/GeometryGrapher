@@ -5,11 +5,12 @@ import java.util.List;
 import java.util.ListIterator;
 import java.util.Random;
 
-public class MyEquation implements Gauss<Float, MyEquation> {
+class MyEquation implements Gauss<Float, MyEquation> {
     private List<Float> equation = new ArrayList<Float>();
-    public List<Float> getEquation(){
+    private List<Float> getEquation(){
         return equation;
     }
+
     public void generate(int size){
         if (size < 2) size = 2;
         this.equation.clear();
@@ -19,7 +20,7 @@ public class MyEquation implements Gauss<Float, MyEquation> {
         }
     }
 
-    public void setEquation(List<Float> equation)
+    void setEquation(List<Float> equation)
     {
         this.equation = equation;
     }
@@ -28,6 +29,7 @@ public class MyEquation implements Gauss<Float, MyEquation> {
     public int size(){
         return equation.size();
     }
+
     @Override
     public void addEquation(MyEquation item){
         ListIterator<Float> i = equation.listIterator();

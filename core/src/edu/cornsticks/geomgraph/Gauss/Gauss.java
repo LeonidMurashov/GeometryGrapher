@@ -1,9 +1,14 @@
 package edu.cornsticks.geomgraph.Gauss;
 
-public interface Gauss<N extends Number, T extends Gauss<N, T>> {
-    public void addEquation(T item);
-    public void mul(N coefficient);
-    public N findCoefficient(N a, N b);
-    public N at(int index);
-    public int size();
+interface Gauss<N extends Number, T extends Gauss<N, T>> {
+
+    void addEquation(T item);
+
+    void mul(N coefficient);
+
+    N findCoefficient(N a, N b);
+
+    N at(int index);
+
+    int size();
 }
