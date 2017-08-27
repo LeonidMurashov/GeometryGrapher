@@ -11,19 +11,19 @@ import com.badlogic.gdx.backends.android.AndroidFragmentApplication;
 
 public class SpaceFragment extends AndroidFragmentApplication implements Messenger {
 
-    private BaseSpaceClass space;
+    private Space space;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        space = new BaseSpaceClass(this);
+        space = new Space(this);
 
         return initializeForView(space);
     }
 
     void parseAndAddObject(String newObject) {
-        space.parseAndAdd(newObject);
+        space.parse(newObject);
     }
 
     void addPlane(float a, float b, float c, float d){

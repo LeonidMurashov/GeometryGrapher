@@ -1,5 +1,5 @@
 android {
-    buildToolsVersion '25.0.0'
+    buildToolsVersion '25.0.3'
     compileSdkVersion 26
     sourceSets {
         main {
@@ -19,7 +19,7 @@ android {
     }
     defaultConfig {
         applicationId "edu.cornsticks.geomgraph"
-        minSdkVersion 15
+        minSdkVersion 21
         targetSdkVersion 26
         versionCode 1
         versionName "1.0"
@@ -29,6 +29,8 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+    }
+    productFlavors {
     }
 }
 // called every time gradle gets executed, takes the native dependencies of
@@ -133,5 +135,4 @@ idea {
 dependencies {
     compile 'com.android.support:appcompat-v7:26.0.0-alpha1'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
-    compile 'com.google.code.gson:gson:2.8.1'
 }

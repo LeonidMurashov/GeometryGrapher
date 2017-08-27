@@ -7,4 +7,5 @@ eclipse.project {
 }
 dependencies {
     compile 'org.apache.commons:commons-math3:3.6.1'
+    compile 'com.google.code.gson:gson:2.8.1'
 }

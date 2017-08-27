@@ -1,12 +1,13 @@
 package edu.cornsticks.geomgraph.Gauss;
 
-public class Algorithm<N extends Number, T extends Gauss<N, T>> {
-    LinearSystem<N, T> list = null;
-    public Algorithm(LinearSystem<N, T> system){
+class Algorithm<N extends Number, T extends Gauss<N, T>> {
+
+    private LinearSystem<N, T> list = null;
+    Algorithm(LinearSystem<N, T> system){
             list = system;
     }
 
-    public void calculate() throws NullPointerException, ArithmeticException{
+    void calculate() throws NullPointerException, ArithmeticException{
         if (list == null){
             throw new NullPointerException("LinearSystem<N, T> instance equal null");
         }
