@@ -22,17 +22,12 @@ public class SpaceFragment extends AndroidFragmentApplication implements Messeng
         return initializeForView(space);
     }
 
-    void parseAndAddObject(String newObject) {
+    void parse(String newObject) {
         space.parse(newObject);
     }
 
-    void addPlane(float a, float b, float c, float d){
-        //Random r = new Random();
-        //space.addPlane(new Plane(new Vector3(1,4,5), new Vector3(0,2,0), new Color(r.nextFloat(), r.nextFloat(), r.nextFloat(), 1f)));
-    }
-
     void resetScene(){
-    //    space.resetScene();
+        space.reset();
     }
 
     @Override

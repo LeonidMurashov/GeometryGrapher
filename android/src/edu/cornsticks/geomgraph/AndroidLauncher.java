@@ -13,8 +13,6 @@ import android.widget.Toast;
 
 import com.badlogic.gdx.backends.android.AndroidFragmentApplication;
 
-import java.io.IOException;
-
 public class AndroidLauncher extends AppCompatActivity implements AndroidFragmentApplication.Callbacks, View.OnClickListener{
 
     SpaceFragment fragment;
@@ -90,17 +88,11 @@ public class AndroidLauncher extends AppCompatActivity implements AndroidFragmen
         final EditText text = new EditText(this);
         text.setHint("Enter a command to add an object");
         builder.setView(text);
-//        View view = getLayoutInflater().inflate(R.layout.layout_add_object, null);
-//        builder.setView(view);
-////       final EditText EcA = view.findViewById(R.id.coordA);
-//        final EditText EcB = view.findViewById(R.id.coordB);
-//        final EditText EcC = view.findViewById(R.id.coordC);
-//        final EditText EcD = view.findViewById(R.id.coordD);
 
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-				fragment.parseAndAddObject(text.getText().toString());
+				fragment.parse(text.getText().toString());
             }
         }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             @Override

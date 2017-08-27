@@ -5,11 +5,16 @@ import com.badlogic.gdx.graphics.g3d.Model;
 import com.badlogic.gdx.graphics.g3d.ModelBatch;
 import com.badlogic.gdx.graphics.g3d.ModelInstance;
 
-public class Figure {
+public abstract class Figure {
 
     Model model;
     ModelInstance instance;
     public String name;
+
+    Figure(){
+        model = null;
+        instance = null;
+    }
 
     public String getName() {
         return name;
@@ -24,7 +29,9 @@ public class Figure {
     }
 
     public void dispose(){
-        model.dispose();
+        if(model!=null)
+            model.dispose();
     }
 
+    public abstract void createInstance();
 }

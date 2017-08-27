@@ -90,8 +90,9 @@ class Space extends InputAdapter implements ApplicationListener {
 
 	}
 
-	void parse(@SuppressWarnings("UnusedParameters") String newObject) {
+	void parse(String str) {
 		//TODO
+
 	}
 
 	@Override

@@ -20,11 +20,16 @@ public class Plane extends Figure{
     private com.badlogic.gdx.math.Plane plane;
 
 
-    //TODO
-    private float red;
-    private float green;
-    private float blue;
-    private float alpha;
+
+    private Color color;
+
+    public Plane() {
+        super();
+        a = b = d = 0;
+        c = 1;
+        plane = null;
+        color = null;
+    }
 
     public Plane(float a, float b, float c, float d, Color color) {
         float norm = (float) Math.sqrt(a*a+b*b+c*c);
@@ -33,18 +38,10 @@ public class Plane extends Figure{
         this.c = c/norm;
         this.d = d/norm;
 
-        red = color.r;
-        blue = color.b;
-        green = color.g;
-        alpha = color.a;
+        this.color = color;
+
 
         plane = new com.badlogic.gdx.math.Plane(new Vector3(a,b,c), d);
-
-        ModelBuilder builder = new ModelBuilder();
-        model = builder.createBox(100,100,0.3f, GL20.GL_TRIANGLES, new Material(ColorAttribute.createDiffuse(color)),
-                VertexAttributes.Usage.Position | VertexAttributes.Usage.Normal);
-
-        instance = new ModelInstance(model);
 
         setName("Plane: A: " + a + " B: " + b + " C: " + c + " D: " + d);
     }
@@ -56,25 +53,56 @@ public class Plane extends Figure{
         c = normalizedNorm.z;
         d = -(a*point.x + b*point.y + c*point.z);
 
-        red = color.r;
-        blue = color.b;
-        green = color.g;
-        alpha = color.a;
+        this.color = color;
 
         plane = new com.badlogic.gdx.math.Plane(normalizedNorm, point);
 
-        ModelBuilder builder = new ModelBuilder();
-        model = builder.createBox(100,100,0.3f, GL20.GL_TRIANGLES, new Material(ColorAttribute.createDiffuse(new Color())),
-                VertexAttributes.Usage.Position | VertexAttributes.Usage.Normal);
-
-        instance = new ModelInstance(model);
-
         setName("Plane: A: " + a + " B: " + b + " C: " + c + " D: " + d);
+    }
+
+    public void setParams(int a, int b, int c, int d, Color color){
+        dispose();
+        float norm = (float) Math.sqrt(a*a+b*b+c*c);
+        this.a = a/norm;
+        this.b = b/norm;
+        this.c = c/norm;
+        this.d = d/norm;
+
+        this.color = color;
+
+
+        plane = new com.badlogic.gdx.math.Plane(new Vector3(a,b,c), d);
+        createInstance();
+    }
+
+    public void setParams(Vector3 normal, Vector3 point, Color color){
+        dispose();
+        Vector3 normalizedNorm = new Vector3(normal.cpy().nor());
+        a = normalizedNorm.x;
+        b = normalizedNorm.y;
+        c = normalizedNorm.z;
+        d = -(a*point.x + b*point.y + c*point.z);
+
+        this.color = color;
+
+        plane = new com.badlogic.gdx.math.Plane(normalizedNorm, point);
     }
 
     @Override
     public void dispose() {
         super.dispose();
         a = b = c = d = 0;
+    }
+
+    @Override
+    public void createInstance() {
+        ModelBuilder builder = new ModelBuilder();
+        model = builder.createBox(100,100,0.3f, GL20.GL_TRIANGLES, new Material(ColorAttribute.createDiffuse(color)),
+                VertexAttributes.Usage.Position | VertexAttributes.Usage.Normal);
+
+        instance = new ModelInstance(model);
+
+        Vector3 normal = plane.getNormal();
+        instance.transform.rotate(Vector3.Z, normal);
     }
 }
