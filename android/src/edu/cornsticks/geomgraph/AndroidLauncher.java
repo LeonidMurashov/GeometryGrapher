@@ -86,7 +86,7 @@ public class AndroidLauncher extends AppCompatActivity implements AndroidFragmen
     public void addObject(){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         final EditText text = new EditText(this);
-        text.setHint("Enter a command to add an object");
+        text.setHint("Ваш код");
         builder.setView(text);
 
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -94,12 +94,12 @@ public class AndroidLauncher extends AppCompatActivity implements AndroidFragmen
             public void onClick(DialogInterface dialogInterface, int i) {
 				fragment.parse(text.getText().toString());
             }
-        }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+        }).setNegativeButton("Отмена", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 dialogInterface.dismiss();
             }
-        }).setTitle("Add Object").show();
+        }).setTitle("Редактор").show();
     }
 
     public void resetScene(){

@@ -2,6 +2,7 @@ package edu.cornsticks.geomgraph;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,8 +23,8 @@ public class SpaceFragment extends AndroidFragmentApplication implements Messeng
         return initializeForView(space);
     }
 
-    void parse(String newObject) {
-        space.parse(newObject);
+    void parse(String str) {
+        space.requestDrawing(str);
     }
 
     void resetScene(){
@@ -31,13 +32,18 @@ public class SpaceFragment extends AndroidFragmentApplication implements Messeng
     }
 
     @Override
-    public void sendMessage(final String msg) {
+    public void sendMessage(final String str) {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                Toast.makeText(getContext().getApplicationContext(), msg, Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext().getApplicationContext(), str, Toast.LENGTH_LONG).show();
             }
         });
 
+    }
+
+    @Override
+    public void log(String str) {
+        Log.e("DEALER",str);
     }
 }

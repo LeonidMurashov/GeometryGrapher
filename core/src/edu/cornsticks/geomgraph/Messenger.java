@@ -4,8 +4,9 @@ package edu.cornsticks.geomgraph;
  * Created to make toasts from core module.
  */
 
-interface Messenger {
+public interface Messenger {
 
-	void sendMessage(String msg);
+	void sendMessage(String str);
+	void log(String str);
 
 }
