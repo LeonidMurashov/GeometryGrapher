@@ -61,8 +61,8 @@ class Space extends InputAdapter implements ApplicationListener {
 		modelBatch = new ModelBatch();
 
 		environment = new Environment();
-		environment.set(new ColorAttribute(ColorAttribute.AmbientLight, 0.8f, 0.8f, 0.8f, 1f));
-		environment.add(new PointLight().set(0.3f, 0.3f, 0.3f, 100f, 100f, 100f, 50));
+		environment.set(new ColorAttribute(ColorAttribute.AmbientLight, 0.8f, 0.8f, 0.8f, 0f));
+		//environment.add(new PointLight().set(0.3f, 0.3f, 0.3f, 100f, 100f, 100f, 100f));
 
 		BitmapFont font = new BitmapFont();
 		label = new Label(" ", new Label.LabelStyle(font, Color.WHITE));
