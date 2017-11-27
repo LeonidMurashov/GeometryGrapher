@@ -49,8 +49,8 @@ public class CameraController implements GestureDetector.GestureListener {
             pan(-1, -1, 0, 0);
             angle = 0;
         }
-
-        space.requestReDrawing();
+        if(count == 1)
+            space.requestReDrawing();
         return false;
     }
 
